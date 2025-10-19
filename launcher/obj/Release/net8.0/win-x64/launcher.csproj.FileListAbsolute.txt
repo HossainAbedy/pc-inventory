@@ -1,0 +1,14 @@
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\bin\Release\net8.0\win-x64\launcher.exe
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\bin\Release\net8.0\win-x64\launcher.deps.json
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\bin\Release\net8.0\win-x64\launcher.runtimeconfig.json
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\bin\Release\net8.0\win-x64\launcher.dll
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\bin\Release\net8.0\win-x64\launcher.pdb
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\obj\Release\net8.0\win-x64\launcher.GeneratedMSBuildEditorConfig.editorconfig
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\obj\Release\net8.0\win-x64\launcher.AssemblyInfoInputs.cache
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\obj\Release\net8.0\win-x64\launcher.AssemblyInfo.cs
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\obj\Release\net8.0\win-x64\launcher.csproj.CoreCompileInputs.cache
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\obj\Release\net8.0\win-x64\launcher.dll
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\obj\Release\net8.0\win-x64\refint\launcher.dll
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\obj\Release\net8.0\win-x64\launcher.pdb
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\obj\Release\net8.0\win-x64\launcher.genruntimeconfig.cache
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\obj\Release\net8.0\win-x64\ref\launcher.dll

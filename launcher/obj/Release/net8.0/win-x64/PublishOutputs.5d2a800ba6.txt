@@ -1,0 +1,5 @@
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\publish\launcher.exe
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\publish\launcher.dll
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\publish\launcher.deps.json
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\publish\launcher.runtimeconfig.json
+E:\ShareME\SBAC TAO\NewYear25\pc-inventory\launcher\publish\launcher.pdb
