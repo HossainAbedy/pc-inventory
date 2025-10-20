@@ -3,8 +3,19 @@
 // Edit or extend as needed.
 
 export default {
-  "172.19.100": "Head Office",
-  "172.19.101": "TPU",
+  "172.19.52": "Head Office 02nd Floor",
+  "172.19.53": "Head Office 03rd Floor",
+  "172.19.57": "Head Office 07th Floor",
+  "172.19.58": "Head Office 08th Floor",
+  "172.19.59": "Head Office 09th Floor",
+  "172.19.60": "Head Office 10th Floor",
+  "172.19.61": "Head Office 11th Floor",
+  "172.19.62": "Head Office 12th Floor",
+  "172.19.63": "Head Office 13th Floor",
+  "172.19.65": "Head Office 23rd Floor",
+  "172.19.96": "Head Office Card Division",
+  "172.19.100": "Head Office ICT Department",
+  "172.19.101": "Head Office TPU",
   "172.19.102": "Principal Branch",
   "172.19.103": "Hemayetpur Branch",
   "172.19.104": "Bhatiary Branch",
