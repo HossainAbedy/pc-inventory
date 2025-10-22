@@ -1,0 +1,23 @@
+src/
+├── PCInventoryVisualizer.jsx          # Main entry component (now ~200 lines)
+├── components/                        # Reusable UI components
+│   ├── UploadSection.jsx              # File upload, merge strategy, group size
+│   ├── GlobalSummary.jsx              # Total stats + bar chart
+│   ├── OSDistribution.jsx             # OS cards grid
+│   ├── BlockList.jsx                  # IP blocks list with editing/export
+│   ├── BlockDetails.jsx               # Selected block details, pie charts, table
+│   └── OSModal.jsx                    # Dialog for OS details
+├── utils/                             # Helper functions
+│   ├── parseXlsx.js                   # XLSX parsing
+│   ├── mergeRows.js                   # Row merging logic
+│   ├── ipUtils.js                     # IP grouping, block keys
+│   ├── dateUtils.js                   # Date formatting
+│   ├── csvUtils.js                    # CSV escaping/export
+│   ├── statusIcons.js                 # Domain/Win7 icon logic
+│   └── storageUtils.js                # Branch map persistence
+├── data/                              # Constants
+│   ├── branches.js                    # Default branches
+│   ├── gradients.js                   # Gradients array
+│   ├── chartColors.js                 # Chart colors
+│   └── theme.js                       # MUI theme
+└── ... (other files like index.js)
