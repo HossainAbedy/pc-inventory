@@ -95,8 +95,28 @@ export default function PCInventoryVisualizer() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ p: { xs: 2, md: 3 } }}>
-        <Typography variant="h5" gutterBottom sx={{ /* styles unchanged */ }}>
-          PC Inventory Visualizer
+        <Typography
+          variant="h5"
+          component="h1"
+          gutterBottom
+          sx={{
+            fontWeight: 900,
+            fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.85rem" },
+            lineHeight: 1.05,
+            letterSpacing: "0.6px",
+            // vibrant multi-stop gradient
+            background: "linear-gradient(90deg, #667eea 0%, #764ba2 40%, #43cea2 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            // soft glow for depth (keeps text crisp)
+            textShadow: "0 2px 12px rgba(102,126,234,0.12)",
+            // accessible fallback color for UAs that ignore bg-clip
+            color: "#2b2b2b",
+            display: "inline-block",
+            px: 0.25,
+          }}
+        >
+          SBAC Inventory Visualizer
         </Typography>
         <UploadSection
           mergeStrategy={mergeStrategy}
@@ -104,6 +124,7 @@ export default function PCInventoryVisualizer() {
           groupSize={groupSize}
           setGroupSize={setGroupSize}
           rowsLength={rows.length}
+          rows={rows} 
           isStarting={isStarting}
           handleStartScheduler={handleStartScheduler}
           applyRows={applyRows}
