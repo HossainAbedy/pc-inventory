@@ -52,8 +52,11 @@ export default function GlobalSummary({ globalSummary = {}, blocks = {} }) {
   const total = Number(globalSummary.total || 0);
   const domainCount = Number(globalSummary.domainJoined || 0);
   const workgroupCount = Number(globalSummary.workgroup || 0);
+  const avCount = Number(globalSummary.avProtected || 0); 
+
   const domainPct = total > 0 ? ((domainCount / total) * 100).toFixed(1) : "0.0";
   const workgroupPct = total > 0 ? ((workgroupCount / total) * 100).toFixed(1) : "0.0";
+  const avPct = total > 0 ? ((avCount / total) * 100).toFixed(1) : "0.0"; 
 
   return (
     <Paper sx={{ p: 2, borderRadius: 3 }} elevation={1}>
@@ -62,16 +65,14 @@ export default function GlobalSummary({ globalSummary = {}, blocks = {} }) {
           <Typography variant="subtitle2">Total Hosts</Typography>
           <Typography variant="h5" sx={{ fontWeight: 800 }}>{total}</Typography>
         </Box>
-
         <Stat label="Domain Joined" value={domainCount} percent={domainPct} reverse={true} />
         <Stat label="Workgroup" value={workgroupCount} percent={workgroupPct} reverse={false} />
-
+        <Stat label="AV Protected" value={avCount} percent={avPct} reverse={true} />   
         <Box>
           <Typography variant="subtitle2">IP Blocks</Typography>
           <Typography variant="h5" sx={{ fontWeight: 800 }}>{Object.keys(blocks || {}).length}</Typography>
         </Box>
       </Stack>
-
       <Box sx={{ mt: 3, height: 360 }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={osBarData}>

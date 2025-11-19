@@ -66,13 +66,40 @@ export default function PCInventoryVisualizer() {
     // Global computation
     const total = rows.length;
     let domainJoined = 0;
+    let avProtected = 0;
     const osCounter = {};
+
+    // regex to detect common AV products (expand as needed)
+    const avRegex = /(kaspersky|windows defender|symantec|mcafee|avast|avg|trend micro|sophos|bitdefender|crowdstrike|sentinelone)/i;
+    const avNegativeRegex = /(notdetected|not detected|none|noav|0)/i;
+
     rows.forEach((r) => {
-      if (String(r.domainStatus || "").toLowerCase().includes("domain:")) domainJoined += 1;
-      osCounter[r.os] = (osCounter[r.os] || 0) + 1;
+      // domain check (keeps your existing behavior)
+      if (String(r.domainStatus || r.DomainStatus || "").toLowerCase().includes("domain:")) domainJoined += 1;
+
+      // OS counter (keeps your existing behavior)
+      const osKey = r.os || r.OSVersion || r.OS || "Unknown";
+      osCounter[osKey] = (osCounter[osKey] || 0) + 1;
+
+      // AV detection - be tolerant about field name variants
+      const avRaw = String(r.avStatus || r.AVStatus || r.avRaw || r.AV || "").trim();
+      const avLower = avRaw.toLowerCase();
+
+      // Ignore explicit negatives and empty values
+      if (avLower && !avNegativeRegex.test(avLower) && avRegex.test(avLower)) {
+        avProtected += 1;
+      }
     });
+
     const workgroup = total - domainJoined;
-    return { total, domainJoined, workgroup, uniqueOS: Object.keys(osCounter).length, osCounter };
+    return {
+      total,
+      domainJoined,
+      workgroup,
+      uniqueOS: Object.keys(osCounter).length,
+      osCounter,
+      avProtected, // <-- new
+    };
   }, [rows]);
 
   const handleStartScheduler = () => {

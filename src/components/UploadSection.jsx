@@ -127,9 +127,11 @@ export default function UploadSection({
         Hostname: r.hostname || "",
         DomainStatus: r.domainStatus || "",
         OSVersion: r.os || "",
+        AVStatus: r.AVStatus || r.avRaw || "",
         Timestamp: r.timestamp || "",
         Source: r.source || "",
       }));
+
 
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(sheetData);

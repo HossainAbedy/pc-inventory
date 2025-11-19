@@ -13,16 +13,22 @@ export const analyzeBranchItems = (items = []) => {
   const totals = (items || []).length;
   let domainJoinedCount = 0;
   let win7Count = 0;
+  let avProtectedCount = 0;
 
   const win7Regex = /\b(windows[\s-]*7|win7|\b7\b)/i;
-  const domainRegex = /domain[:\s]/i; // look for "Domain:" or similar
+  const domainRegex = /domain[:\s]/i;
 
   (items || []).forEach((r) => {
     if (String(r.domainStatus || "").match(domainRegex)) domainJoinedCount += 1;
     if (String(r.os || "").match(win7Regex)) win7Count += 1;
+    const avRaw = (r.avRaw || "").toLowerCase().trim();
+    // Only count as protected if it contains known AV products
+    if (avRaw.includes("windows defender") || avRaw.includes("kaspersky")) {
+      avProtectedCount += 1;
+    }
   });
 
-  return { totals, domainJoinedCount, win7Count };
+  return { totals, domainJoinedCount, win7Count, avProtectedCount };
 };
 
 export const getDomainStatusIcon = (domainJoinedCount, totalCount) => {
@@ -118,6 +124,60 @@ export const getWin7StatusIcon = (win7Count) => {
     );
   }
   // > 8
+  return (
+    <Tooltip title={title}>
+      <CloseIcon sx={{ color: "#b71c1c" }} fontSize="small" />
+    </Tooltip>
+  );
+};
+
+export const getAVStatusIcon = (avProtectedCount, totalCount) => {
+  const pct = !totalCount ? 0 : Math.round((avProtectedCount * 100) / totalCount);
+  const title = `${avProtectedCount}/${totalCount} hosts with AV (${pct}%)`;
+
+  if (totalCount === 0) {
+    return (
+      <Tooltip title="No hosts">
+        <InfoOutlinedIcon sx={{ color: "#9e9e9e" }} fontSize="small" />
+      </Tooltip>
+    );
+  }
+  if (pct === 100) {
+    return (
+      <Tooltip title={title}>
+        <CheckCircleIcon sx={{ color: "#2e7d32" }} fontSize="small" />
+      </Tooltip>
+    );
+  }
+  if (pct >= 80) {
+    return (
+      <Tooltip title={title}>
+        <CheckCircleIcon sx={{ color: "#1976d2" }} fontSize="small" />
+      </Tooltip>
+    );
+  }
+  if (pct >= 66) {
+    return (
+      <Tooltip title={title}>
+        <InfoOutlinedIcon sx={{ color: "#1976d2" }} fontSize="small" />
+      </Tooltip>
+    );
+  }
+  if (pct >= 50) {
+    return (
+      <Tooltip title={title}>
+        <WarningAmberIcon sx={{ color: "#ffb300" }} fontSize="small" />
+      </Tooltip>
+    );
+  }
+  if (pct >= 20) {
+    return (
+      <Tooltip title={title}>
+        <ErrorOutlineIcon sx={{ color: "#e53935" }} fontSize="small" />
+      </Tooltip>
+    );
+  }
+
   return (
     <Tooltip title={title}>
       <CloseIcon sx={{ color: "#b71c1c" }} fontSize="small" />

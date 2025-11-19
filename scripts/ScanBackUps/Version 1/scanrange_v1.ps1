@@ -67,13 +67,12 @@ foreach ($ip in $ipList) {
     $script = {
         param($ip,$u,$p)
         # Ping quickly
-        if (-not (Test-Connection -ComputerName $ip -Count 1 -Quiet -ErrorAction SilentlyContinue)) { return @{IP=$ip; Status="Unreachable"; AVStatus="Unreachable"} }
+        if (-not (Test-Connection -ComputerName $ip -Count 1 -Quiet -ErrorAction SilentlyContinue)) { return @{IP=$ip; Status="Unreachable"} }
 
         # Try Get-WmiObject with -Credential
         try {
-            $credObj = New-Object System.Management.Automation.PSCredential($u,(ConvertTo-SecureString $p -AsPlainText -Force))
-            $comp = Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ip -Credential $credObj -ErrorAction Stop
-            $os   = Get-WmiObject -Class Win32_OperatingSystem -ComputerName $ip -Credential $credObj -ErrorAction Stop
+            $comp = Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ip -Credential (New-Object System.Management.Automation.PSCredential($u,(ConvertTo-SecureString $p -AsPlainText -Force))) -ErrorAction Stop
+            $os   = Get-WmiObject -Class Win32_OperatingSystem -ComputerName $ip -Credential (New-Object System.Management.Automation.PSCredential($u,(ConvertTo-SecureString $p -AsPlainText -Force))) -ErrorAction Stop
         } catch {
             # fallback SWbemLocator
             try {
@@ -82,79 +81,15 @@ foreach ($ip in $ipList) {
                 $comp = $svc.ExecQuery("SELECT * FROM Win32_ComputerSystem") | Select-Object -First 1
                 $os   = $svc.ExecQuery("SELECT * FROM Win32_OperatingSystem") | Select-Object -First 1
             } catch {
-                return @{IP=$ip; Status="WMIFailed"; Error=$_.Exception.Message; AVStatus="WMIFailed"}
+                return @{IP=$ip; Status="WMIFailed"; Error=$_.Exception.Message}
             }
         }
 
-        # default AVStatus
-        $avStatus = "Unknown"
-
-        # If we have system info, attempt AV detection
         if ($comp -and $os) {
-
-            # First attempt: try root\SecurityCenter2 via Get-WmiObject (preferred)
-            try {
-                $avCred = New-Object System.Management.Automation.PSCredential($u,(ConvertTo-SecureString $p -AsPlainText -Force))
-                $avItems = Get-WmiObject -Namespace "root\SecurityCenter2" -Class "AntiVirusProduct" -ComputerName $ip -Credential $avCred -ErrorAction Stop
-                if ($avItems -and $avItems.Count -gt 0) {
-                    $names = @()
-                    foreach ($a in $avItems) {
-                        if ($a.displayName) { $names += $a.displayName } elseif ($a.displayName -eq $null -and $a.pathToSignedProductExe) { $names += $a.pathToSignedProductExe }
-                    }
-                    if ($names.Count -gt 0) { $avStatus = ($names -join "; ") } else { $avStatus = "Detected (no-name)" }
-                } else {
-                    # no entries found -> set NotDetected (will try a second method below)
-                    $avStatus = "NotDetected"
-                }
-            } catch {
-                # If direct WMI failed, try SWbemLocator to SecurityCenter2 namespace
-                try {
-                    $locator2 = New-Object -ComObject "WbemScripting.SWbemLocator"
-                    $svc2 = $locator2.ConnectServer($ip, "root\SecurityCenter2", $u, $p)
-                    $avQuery = $svc2.ExecQuery("SELECT * FROM AntiVirusProduct")
-                    if ($avQuery -and $avQuery.Count -gt 0) {
-                        $names2 = @()
-                        foreach ($a2 in $avQuery) {
-                            if ($a2.displayName) { $names2 += $a2.displayName } elseif ($a2.pathToSignedProductExe) { $names2 += $a2.pathToSignedProductExe }
-                        }
-                        if ($names2.Count -gt 0) { $avStatus = ($names2 -join "; ") } else { $avStatus = "Detected (no-name)" }
-                    } else {
-                        # keep previous value or mark NotDetected
-                        if ($avStatus -eq "Unknown") { $avStatus = "NotDetected" }
-                    }
-                } catch {
-                    # SWbemLocator to SecurityCenter2 failed as well
-                    if ($avStatus -eq "Unknown") { $avStatus = "WSCQueryFailed" }
-                }
-            }
-
-            # As a last quick heuristic fallback: try reading a small sample of installed program names via Win32_Product (note: slow; best-effort)
-            if ($avStatus -in @("NotDetected","Unknown","WSCQueryFailed")) {
-                try {
-                    $sample = $null
-                    # prefer using SWbemSvc if available to avoid WinRM dependency
-                    if ($svc) {
-                        $sample = $svc.ExecQuery("SELECT Name FROM Win32_Product WHERE Name LIKE '%Kaspersky%' OR Name LIKE '%Symantec%' OR Name LIKE '%McAfee%' OR Name LIKE '%ESET%' OR Name LIKE '%Avast%' OR Name LIKE '%AVG%' OR Name LIKE '%Trend Micro%'") 
-                    } else {
-                        # Try remote WMI call (may be slow)
-                        $sample = Get-WmiObject -Class Win32_Product -ComputerName $ip -Credential $credObj -ErrorAction SilentlyContinue | Where-Object { $_.Name -match 'Kaspersky|Symantec|McAfee|ESET|Avast|AVG|Trend Micro' }
-                    }
-                    if ($sample -and $sample.Count -gt 0) {
-                        $names3 = $sample | ForEach-Object { $_.Name } | Select-Object -Unique
-                        $avStatus = "Installed: " + ($names3 -join "; ")
-                    } else {
-                        # keep existing status (NotDetected or WSCQueryFailed)
-                    }
-                } catch {
-                    # ignore slow fallback errors
-                }
-            }
-
             $domainStatus = if ($comp.PartOfDomain) { "Domain: $($comp.Domain)" } else { "Workgroup: $($comp.Workgroup)" }
-
-            return @{IP=$ip; Hostname=$comp.Name; DomainStatus=$domainStatus; OSVersion=$os.Caption; Status="OK"; AVStatus=$avStatus}
+            return @{IP=$ip; Hostname=$comp.Name; DomainStatus=$domainStatus; OSVersion=$os.Caption; Status="OK"}
         } else {
-            return @{IP=$ip; Status="NoData"; AVStatus="NoData"}
+            return @{IP=$ip; Status="NoData"}
         }
     }
 
@@ -182,12 +117,11 @@ while ($jobs | Where-Object { -not $_.done }) {
                 $h = $out[0]
                 if ($h.Status -eq "OK") {
                     $results.Add([PSCustomObject]@{
-                        IP = $h.IP; Hostname = $h.Hostname; DomainStatus = $h.DomainStatus; OSVersion = $h.OSVersion; Timestamp = (Get-Date).ToString("s"); AVStatus = $h.AVStatus
+                        IP = $h.IP; Hostname = $h.Hostname; DomainStatus = $h.DomainStatus; OSVersion = $h.OSVersion; Timestamp = (Get-Date).ToString("s")
                     })
                 } else {
-                    # you can record failures too if you want (store AVStatus so you can audit)
-                    # Here we store only successful records by default; if you'd rather keep failures, uncomment below:
-                    # $results.Add([PSCustomObject]@{IP=$h.IP; Hostname=$null; DomainStatus=$h.Status; OSVersion=$null; Timestamp=(Get-Date).ToString("s"); AVStatus=$h.AVStatus})
+                    # you can record failures too if you want
+                    # $results.Add([PSCustomObject]@{IP=$h.IP; Hostname=$null; DomainStatus=$h.Status; OSVersion=$null; Error=$h.Error})
                 }
             }
             # update progress
