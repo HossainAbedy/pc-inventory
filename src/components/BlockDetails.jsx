@@ -319,7 +319,7 @@ export default function BlockDetails({
         {/* OS */}
         <Paper sx={{ p: 1 }}>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 1 }}>
-            <Typography variant="subtitle2">OS Distribution</Typography>
+            <Typography variant="subtitle2" sx={{ fontWeight: 700,color: "#152238" }}>OS Distribution</Typography>
             <Box>{getWin7StatusIcon(win7Count)}</Box>
           </Box>
           <ResponsiveContainer width="100%" height={200}>
@@ -339,7 +339,7 @@ export default function BlockDetails({
         {/* Domain */}
         <Paper sx={{ p: 1 }}>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 1 }}>
-            <Typography variant="subtitle2">Domain Status</Typography>
+            <Typography variant="subtitle2" sx={{ fontWeight: 700,color: "#152238" }}>Domain Status</Typography>
             <Box>{getDomainStatusIcon(domainJoinedCount, totals)}</Box>
           </Box>
           <ResponsiveContainer width="100%" height={200}>
@@ -359,7 +359,7 @@ export default function BlockDetails({
         {/* AV */}
         <Paper sx={{ p: 1 }}>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 1 }}>
-            <Typography variant="subtitle2">AV Distribution</Typography>
+            <Typography variant="subtitle2" sx={{ fontWeight: 700,color: "#152238" }}>AV Distribution</Typography>
             <Typography variant="caption" color="text.secondary">
               {blockRows.length} hosts
             </Typography>

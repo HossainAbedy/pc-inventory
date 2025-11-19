@@ -62,14 +62,14 @@ export default function GlobalSummary({ globalSummary = {}, blocks = {} }) {
     <Paper sx={{ p: 2, borderRadius: 3 }} elevation={1}>
       <Stack direction="row" spacing={3} alignItems="flex-start" justifyContent="space-between" flexWrap="wrap">
         <Box>
-          <Typography variant="subtitle2">Total Hosts</Typography>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700,color: "#152238" }}>Total Hosts</Typography>
           <Typography variant="h5" sx={{ fontWeight: 800 }}>{total}</Typography>
         </Box>
         <Stat label="Domain Joined" value={domainCount} percent={domainPct} reverse={true} />
         <Stat label="Workgroup" value={workgroupCount} percent={workgroupPct} reverse={false} />
         <Stat label="AV Protected" value={avCount} percent={avPct} reverse={true} />   
         <Box>
-          <Typography variant="subtitle2">IP Blocks</Typography>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700,color: "#152238" }}>IP Blocks</Typography>
           <Typography variant="h5" sx={{ fontWeight: 800 }}>{Object.keys(blocks || {}).length}</Typography>
         </Box>
       </Stack>

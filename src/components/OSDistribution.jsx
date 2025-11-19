@@ -8,7 +8,7 @@ export default function OSDistribution({ globalSummary, setSelectedOS, setSnack,
   return (
     <Paper sx={{ p: 2, borderRadius: 3 }} elevation={1}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="subtitle1">OS Distribution</Typography>
+        <Typography variant="subtitle1" sx={{ fontWeight: 700,color: "#152238" }}>OS Distribution</Typography>
         <Stack direction="row" spacing={1}>
           <Button size="small" startIcon={<RefreshIcon />} onClick={() => setSnack({ open: true, message: "Manual refresh not implemented", severity: "info" })}>Refresh</Button>
           <Button size="small" startIcon={<ClearIcon />} onClick={() => { setRows([]); setBlocks({}); setSelectedBlock(null); setSnack({ open: true, message: "Cleared data", severity: "info" }); }}>Clear</Button>

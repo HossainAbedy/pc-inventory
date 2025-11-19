@@ -19,24 +19,13 @@ import * as XLSX from "xlsx";
 import { parseXlsxFile } from "../utils/parseXlsx";
 import { mergeRowSets } from "../utils/mergeRows";
 
-/**
- * UploadSection
- *
- * Props:
- * - mergeStrategy, setMergeStrategy
- * - groupSize, setGroupSize
- * - rowsLength, rows (array)
- * - isStarting, handleStartScheduler
- * - applyRows (function that accepts normalized rows array)
- * - setSnack (function to show snack/alert)
- */
 export default function UploadSection({
   mergeStrategy,
   setMergeStrategy,
   groupSize,
   setGroupSize,
   rowsLength,
-  rows = [], // <-- pass current rows from parent
+  rows = [], 
   isStarting,
   handleStartScheduler,
   applyRows,
@@ -132,7 +121,6 @@ export default function UploadSection({
         Source: r.source || "",
       }));
 
-
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(sheetData);
       XLSX.utils.book_append_sheet(wb, ws, "Merged");
@@ -170,8 +158,7 @@ export default function UploadSection({
         </Button>
 
         <Tooltip title="Export merged scanned results (uses current merge strategy)">
-            <Button
-            //   variant="outlined"
+            <Button           
               variant="contained"
               onClick={() => exportMergedExcel({ filename: "pc-inventory-merged.xlsx", dedupe: mergeStrategy })}
               startIcon={<DownloadIcon />}
