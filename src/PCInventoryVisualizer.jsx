@@ -122,29 +122,31 @@ export default function PCInventoryVisualizer() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ p: { xs: 2, md: 3 } }}>
-        <Typography
-          variant="h5"
-          component="h1"
-          gutterBottom
+        <Box
           sx={{
-            fontWeight: 900,
-            fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.85rem" },
-            lineHeight: 1.05,
-            letterSpacing: "0.6px",
-            // vibrant multi-stop gradient
-            background: "linear-gradient(90deg, #667eea 0%, #764ba2 40%, #43cea2 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            // soft glow for depth (keeps text crisp)
-            textShadow: "0 2px 12px rgba(102,126,234,0.12)",
-            // accessible fallback color for UAs that ignore bg-clip
-            color: "#2b2b2b",
-            display: "inline-block",
-            px: 0.25,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            px: 2,
+            py: 1,
+            borderRadius: 2,
+            background: 'linear-gradient(90deg, #F8B408 0%, #E54014 50%, #81488D 100%)',
+            boxShadow: 3,
+            mb: 3
           }}
         >
-          SBAC Inventory Visualizer
-        </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            {/* Put sbac-logo.png into the public/ folder */}
+            <img src="/logo2.png" alt="SBAC" style={{ height: 54 }} />
+            <Typography variant="h5" sx={{ color: '#ffffff', fontWeight: 700 }}>
+              INVENTORY VISUALIZER
+            </Typography>
+          </Box>
+
+          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.95)' }}>
+            SBAC Bank PLC — Internal Tools
+          </Typography>
+        </Box>
         <UploadSection
           mergeStrategy={mergeStrategy}
           setMergeStrategy={setMergeStrategy}
