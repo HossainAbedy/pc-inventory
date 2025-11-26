@@ -142,7 +142,7 @@ export default function UploadSection({
   };
 
   return (
-    <Paper sx={{ p: 2, mb: 3, borderRadius: 3, backdropFilter: "saturate(120%) blur(6px)",background: 'linear-gradient(90deg, #008080 0%, #008000 50%, #152238 100%)', }} elevation={2}>
+    <Paper sx={{ p: 2, mb: 3, borderRadius: 3, backdropFilter: "saturate(120%) blur(6px)",background: 'linear-gradient(90deg, #02AAB0 0%, #41dfff 50%, #95d5b2 100%)', }} elevation={2}>
       <Box sx={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap", }}>
         <Button
           variant="contained"

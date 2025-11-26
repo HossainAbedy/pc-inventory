@@ -60,17 +60,65 @@ export default function GlobalSummary({ globalSummary = {}, blocks = {} }) {
 
   return (
     <Paper sx={{ p: 2, borderRadius: 3 }} elevation={1}>
-      <Stack direction="row" spacing={3} alignItems="flex-start" justifyContent="space-between" flexWrap="wrap">
-        <Box>
-          <Typography variant="subtitle2" sx={{ fontWeight: 700,color: "#152238" }}>Total Hosts</Typography>
-          <Typography variant="h5" sx={{ fontWeight: 800 }}>{total}</Typography>
+      <Stack
+  direction="row"
+  spacing={3}
+  alignItems="flex-start"
+  justifyContent="space-between"
+  flexWrap="wrap"
+>
+  <Box>
+    <Typography variant="subtitle2" sx={{ fontWeight: 700, color: "#152238" }}>
+      Total Hosts
+    </Typography>
+      <Typography variant="h5" sx={{ fontWeight: 800 }}>{total}</Typography>
         </Box>
-        <Stat label="Domain Joined" value={domainCount} percent={domainPct} reverse={true} />
-        <Stat label="Workgroup" value={workgroupCount} percent={workgroupPct} reverse={false} />
-        <Stat label="AV Protected" value={avCount} percent={avPct} reverse={true} />   
+        {/* Domain Joined - TEAL */}
+        <Box sx={{ color: "#008B8B", fontWeight: 700 }}>
+          <Stat
+            label={
+              <Typography sx={{ color: "#008B8B", fontWeight: 700 }}>
+                Domain Joined
+              </Typography>
+            }
+            value={domainCount}
+            percent={domainPct}
+            reverse={true}
+          />
+        </Box>
+        {/* Workgroup - ORANGE */}
+        <Box sx={{ color: "#FF8C00", fontWeight: 700 }}>
+          <Stat
+            label={
+              <Typography sx={{ color: "#FF8C00", fontWeight: 700 }}>
+                Workgroup
+              </Typography>
+            }
+            value={workgroupCount}
+            percent={workgroupPct}
+            reverse={false}
+          />
+        </Box>
+        {/* AV Protected - GREEN */}
+        <Box sx={{ color: "#228B22", fontWeight: 700 }}>
+          <Stat
+            label={
+              <Typography sx={{ color: "#228B22", fontWeight: 700 }}>
+                AV Protected
+              </Typography>
+            }
+            value={avCount}
+            percent={avPct}
+            reverse={true}
+          />
+        </Box>
         <Box>
-          <Typography variant="subtitle2" sx={{ fontWeight: 700,color: "#152238" }}>IP Blocks</Typography>
-          <Typography variant="h5" sx={{ fontWeight: 800 }}>{Object.keys(blocks || {}).length}</Typography>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700, color: "#152238" }}>
+            IP Blocks
+          </Typography>
+          <Typography variant="h5" sx={{ fontWeight: 800 }}>
+            {Object.keys(blocks || {}).length}
+          </Typography>
         </Box>
       </Stack>
       <Box sx={{ mt: 3, height: 360 }}>

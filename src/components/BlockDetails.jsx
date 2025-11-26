@@ -123,7 +123,7 @@ export default function BlockDetails({
 
   const colorForLetter = (letter) => {
     if (letter === "K") return "#2e7d32"; // green
-    if (letter === "W") return "#1976d2"; // blue
+    if (letter === "W") return "#008B8B"; // blue
     if (letter === "O") return "#6c757d"; // grey
     if (letter === "X") return "#c62828"; // red
     return "#9e9e9e";
@@ -186,7 +186,7 @@ export default function BlockDetails({
 
   const SCHEMES = {
     win11: ["#2e7d32", "#66bb6a"],
-    win10: ["#1976d2", "#42a5f5"],
+    win10: ["#008B8B", "#42a5f5"],
     win7: ["#c62828", "#ff7961"],
     domain: ["#2e7d32", "#81c784"],
     workgroup: ["#c62828", "#ff8a80"],
@@ -218,7 +218,7 @@ export default function BlockDetails({
     if (type === "av") {
       const map = {
         Kaspersky: ["#2e7d32", "#66bb6a"],
-        Defender: ["#1976d2", "#42a5f5"],
+        Defender: ["#008B8B", "#42a5f5"],
         "Other AV": ["#6c757d", "#b0b7bd"],
         Missing: ["#c62828", "#ff8a80"],
       };
@@ -399,13 +399,41 @@ export default function BlockDetails({
             <TableBody>
               {displayedRows.map((r) => (
                 <TableRow key={r.id || r.ip} hover sx={{ "&:hover": { background: "rgba(102, 126, 234, 0.1)" } }}>
-                  <TableCell sx={{ fontSize: 13 }}>{r.ip}</TableCell>
-                  <TableCell sx={{ fontSize: 13 }}>{r.hostname}</TableCell>
-                  <TableCell sx={{ fontSize: 13 }}>{r.domainStatus}</TableCell>
-                  <TableCell sx={{ fontSize: 13 }}>{r.os}</TableCell>
-                  <TableCell sx={{ fontSize: 13, textAlign: "center", width: 90 }}>{renderAV(r)}</TableCell>
-                  <TableCell sx={{ fontSize: 13, color: "#555" }}>{formatDate(r.timestamp)}</TableCell>
-                  <TableCell sx={{ fontSize: 13, color: "#555" }}>{r.source || ""}</TableCell>
+                  <TableCell sx={{ fontSize: 13, fontWeight: 700, }}>{r.ip}</TableCell>
+                  <TableCell sx={{ fontSize: 13, fontWeight: 700, }}>{r.hostname}</TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: (() => {
+                        const d = String(r.domainStatus || "").toLowerCase();
+                        if (d.includes("domain")) return "#008000"; // green
+                        if (d.includes("workgroup")) return "#FF0000 "; // red
+                        return "#6c757d"; // grey fallback
+                      })(),
+                    }}
+                  >
+                    {r.domainStatus || "—"}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontWeight: 700,
+                      color: (() => {
+                        const os = String(r.os || "").toLowerCase();
+
+                        if (os.includes("windows 7") || os.includes("win7")) return "#c62828";   // red
+                        if (os.includes("windows 10") || os.includes("win10")) return "#008B8B"; // blue
+                        if (os.includes("windows 11") || os.includes("win11")) return "#2e7d32"; // green
+
+                        return "#6c757d"; // grey for unknown
+                      })(),
+                    }}
+                  >
+                    {r.os || "—"}
+                  </TableCell>
+                  <TableCell sx={{ fontSize: 13, fontWeight: 700, textAlign: "center", width: 90 }}>{renderAV(r)}</TableCell>
+                  <TableCell sx={{ fontSize: 13, fontWeight: 700, color: "#555" }}>{formatDate(r.timestamp)}</TableCell>
+                  <TableCell sx={{ fontSize: 13, fontWeight: 700, color: "#555" }}>{r.source || ""}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
