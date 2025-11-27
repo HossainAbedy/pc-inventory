@@ -122,10 +122,10 @@ export default function BlockDetails({
   };
 
   const colorForLetter = (letter) => {
-    if (letter === "K") return "#2e7d32"; // green
-    if (letter === "W") return "#008B8B"; // blue
+    if (letter === "K") return "#005800"; // green
+    if (letter === "W") return "#007272"; // blue
     if (letter === "O") return "#6c757d"; // grey
-    if (letter === "X") return "#c62828"; // red
+    if (letter === "X") return "#e60000"; // red
     return "#9e9e9e";
   };
 
@@ -185,11 +185,11 @@ export default function BlockDetails({
     });
 
   const SCHEMES = {
-    win11: ["#2e7d32", "#66bb6a"],
-    win10: ["#008B8B", "#42a5f5"],
-    win7: ["#c62828", "#ff7961"],
-    domain: ["#2e7d32", "#81c784"],
-    workgroup: ["#c62828", "#ff8a80"],
+    win11: ["#003400", "#00d600"],
+    win10: ["#003f3f", "#00d8d8"],
+    win7: ["#b30000", "#ff1a1a"],
+    domain: ["#003400", "#00d600"],
+    workgroup: ["#b30000", "#ff1a1a"],
     other: ["#6c757d", "#b0b7bd"],
   };
 
@@ -217,10 +217,10 @@ export default function BlockDetails({
     }
     if (type === "av") {
       const map = {
-        Kaspersky: ["#2e7d32", "#66bb6a"],
-        Defender: ["#008B8B", "#42a5f5"],
+        Kaspersky: ["#003400", "#00d600"],
+        Defender: ["#003f3f", "#00d8d8"],
         "Other AV": ["#6c757d", "#b0b7bd"],
-        Missing: ["#c62828", "#ff8a80"],
+        Missing: ["#b30000", "#ff1a1a"],
       };
       return map[d.name] || ["#888", "#bbb"];
     }
@@ -286,7 +286,7 @@ export default function BlockDetails({
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
         <Box>
           <Typography variant="h6" sx={{ fontWeight: 700, color: "#152238" }}>Block: {selectedBlock}</Typography>
-          <Typography variant="body2" sx={{ color: "#008B8B  ", fontSize: 13, fontWeight: 700 }}>
+          <Typography variant="body2" sx={{ color: "#003f3f  ", fontSize: 13, fontWeight: 700 }}>
             Branch: {branchMap[selectedBlock] || "—"}
           </Typography>
           <Typography variant="body2" color="text.secondary">
@@ -407,8 +407,8 @@ export default function BlockDetails({
                       fontWeight: 700,
                       color: (() => {
                         const d = String(r.domainStatus || "").toLowerCase();
-                        if (d.includes("domain")) return "#008000"; // green
-                        if (d.includes("workgroup")) return "#FF0000 "; // red
+                        if (d.includes("domain")) return "#005800"; // green
+                        if (d.includes("workgroup")) return "#e60000 "; // red
                         return "#6c757d"; // grey fallback
                       })(),
                     }}
@@ -421,9 +421,9 @@ export default function BlockDetails({
                       color: (() => {
                         const os = String(r.os || "").toLowerCase();
 
-                        if (os.includes("windows 7") || os.includes("win7")) return "#c62828";   // red
-                        if (os.includes("windows 10") || os.includes("win10")) return "#008B8B"; // blue
-                        if (os.includes("windows 11") || os.includes("win11")) return "#2e7d32"; // green
+                        if (os.includes("windows 7") || os.includes("win7")) return "#e60000";   // red
+                        if (os.includes("windows 10") || os.includes("win10")) return "#007272"; // blue
+                        if (os.includes("windows 11") || os.includes("win11")) return "#005800"; // green
 
                         return "#6c757d"; // grey for unknown
                       })(),

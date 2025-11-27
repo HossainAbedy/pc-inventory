@@ -71,13 +71,13 @@ export default function GlobalSummary({ globalSummary = {}, blocks = {} }) {
     <Typography variant="subtitle2" sx={{ fontWeight: 700, color: "#152238" }}>
       Total Hosts
     </Typography>
-      <Typography variant="h5" sx={{ fontWeight: 800 }}>{total}</Typography>
+      <Typography variant="h5" sx={{ fontWeight: 800, color: "#cc0066"  }}>{total}</Typography>
         </Box>
         {/* Domain Joined - TEAL */}
         <Box sx={{ color: "#008B8B", fontWeight: 700 }}>
           <Stat
             label={
-              <Typography sx={{ color: "#008B8B", fontWeight: 700 }}>
+              <Typography sx={{ color: "#152238", fontWeight: 700 }}>
                 Domain Joined
               </Typography>
             }
@@ -87,10 +87,10 @@ export default function GlobalSummary({ globalSummary = {}, blocks = {} }) {
           />
         </Box>
         {/* Workgroup - ORANGE */}
-        <Box sx={{ color: "#FF8C00", fontWeight: 700 }}>
+        <Box sx={{ color: "#e60000", fontWeight: 700 }}>
           <Stat
             label={
-              <Typography sx={{ color: "#FF8C00", fontWeight: 700 }}>
+              <Typography sx={{ color: "#152238", fontWeight: 700 }}>
                 Workgroup
               </Typography>
             }
@@ -103,7 +103,7 @@ export default function GlobalSummary({ globalSummary = {}, blocks = {} }) {
         <Box sx={{ color: "#228B22", fontWeight: 700 }}>
           <Stat
             label={
-              <Typography sx={{ color: "#228B22", fontWeight: 700 }}>
+              <Typography sx={{ color: "#152238", fontWeight: 700 }}>
                 AV Protected
               </Typography>
             }
@@ -116,7 +116,7 @@ export default function GlobalSummary({ globalSummary = {}, blocks = {} }) {
           <Typography variant="subtitle2" sx={{ fontWeight: 700, color: "#152238" }}>
             IP Blocks
           </Typography>
-          <Typography variant="h5" sx={{ fontWeight: 800 }}>
+          <Typography variant="h5" sx={{ fontWeight: 800, color: "#FF8C00" }}>
             {Object.keys(blocks || {}).length}
           </Typography>
         </Box>

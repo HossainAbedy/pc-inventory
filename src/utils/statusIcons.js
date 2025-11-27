@@ -45,21 +45,21 @@ export const getDomainStatusIcon = (domainJoinedCount, totalCount) => {
   if (pct === 100) {
     return (
       <Tooltip title={title}>
-        <CheckCircleIcon sx={{ color: "#2e7d32" }} fontSize="small" />
+        <CheckCircleIcon sx={{ color: "#005800" }} fontSize="small" />
       </Tooltip>
     );
   }
   if (pct >= 80) {
     return (
       <Tooltip title={title}>
-        <CheckCircleIcon sx={{ color: "#1976d2" }} fontSize="small" />
+        <CheckCircleIcon sx={{ color: "#00d8d8" }} fontSize="small" />
       </Tooltip>
     );
   }
   if (pct >= 66) {
     return (
       <Tooltip title={title}>
-        <InfoOutlinedIcon sx={{ color: "#1976d2" }} fontSize="small" />
+        <InfoOutlinedIcon sx={{ color: "#00d8d8" }} fontSize="small" />
       </Tooltip>
     );
   }
@@ -73,14 +73,14 @@ export const getDomainStatusIcon = (domainJoinedCount, totalCount) => {
   if (pct >= 20) {
     return (
       <Tooltip title={title}>
-        <ErrorOutlineIcon sx={{ color: "#e53935" }} fontSize="small" />
+        <ErrorOutlineIcon sx={{ color: "#ff1a1a" }} fontSize="small" />
       </Tooltip>
     );
   }
   // pct < 20
   return (
     <Tooltip title={title}>
-      <CloseIcon sx={{ color: "#b71c1c" }} fontSize="small" />
+      <CloseIcon sx={{ color: "#ff1a1a" }} fontSize="small" />
     </Tooltip>
   );
 };
@@ -91,21 +91,21 @@ export const getWin7StatusIcon = (win7Count) => {
   if (!win7Count) {
     return (
       <Tooltip title={title}>
-        <CheckCircleIcon sx={{ color: "#2e7d32" }} fontSize="small" />
+        <CheckCircleIcon sx={{ color: "#005800" }} fontSize="small" />
       </Tooltip>
     );
   }
   if (win7Count === 1) {
     return (
       <Tooltip title={title}>
-        <CheckCircleIcon sx={{ color: "#1976d2" }} fontSize="small" />
+        <CheckCircleIcon sx={{ color: "#00d8d8" }} fontSize="small" />
       </Tooltip>
     );
   }
   if (win7Count >= 2 && win7Count <= 3) {
     return (
       <Tooltip title={title}>
-        <InfoOutlinedIcon sx={{ color: "#1976d2" }} fontSize="small" />
+        <InfoOutlinedIcon sx={{ color: "#00d8d8" }} fontSize="small" />
       </Tooltip>
     );
   }
@@ -119,14 +119,14 @@ export const getWin7StatusIcon = (win7Count) => {
   if (win7Count >= 6 && win7Count <= 8) {
     return (
       <Tooltip title={title}>
-        <ErrorOutlineIcon sx={{ color: "#e53935" }} fontSize="small" />
+        <ErrorOutlineIcon sx={{ color: "#ff1a1a" }} fontSize="small" />
       </Tooltip>
     );
   }
   // > 8
   return (
     <Tooltip title={title}>
-      <CloseIcon sx={{ color: "#b71c1c" }} fontSize="small" />
+      <CloseIcon sx={{ color: "#ff1a1a" }} fontSize="small" />
     </Tooltip>
   );
 };
@@ -145,21 +145,21 @@ export const getAVStatusIcon = (avProtectedCount, totalCount) => {
   if (pct === 100) {
     return (
       <Tooltip title={title}>
-        <CheckCircleIcon sx={{ color: "#2e7d32" }} fontSize="small" />
+        <CheckCircleIcon sx={{ color: "#005800" }} fontSize="small" />
       </Tooltip>
     );
   }
   if (pct >= 80) {
     return (
       <Tooltip title={title}>
-        <CheckCircleIcon sx={{ color: "#1976d2" }} fontSize="small" />
+        <CheckCircleIcon sx={{ color: "#00d8d8" }} fontSize="small" />
       </Tooltip>
     );
   }
   if (pct >= 66) {
     return (
       <Tooltip title={title}>
-        <InfoOutlinedIcon sx={{ color: "#1976d2" }} fontSize="small" />
+        <InfoOutlinedIcon sx={{ color: "#00d8d8" }} fontSize="small" />
       </Tooltip>
     );
   }
@@ -173,14 +173,14 @@ export const getAVStatusIcon = (avProtectedCount, totalCount) => {
   if (pct >= 20) {
     return (
       <Tooltip title={title}>
-        <ErrorOutlineIcon sx={{ color: "#e53935" }} fontSize="small" />
+        <ErrorOutlineIcon sx={{ color: "#ff1a1a" }} fontSize="small" />
       </Tooltip>
     );
   }
 
   return (
     <Tooltip title={title}>
-      <CloseIcon sx={{ color: "#b71c1c" }} fontSize="small" />
+      <CloseIcon sx={{ color: "#ff1a1a" }} fontSize="small" />
     </Tooltip>
   );
 };
